@@ -22,40 +22,50 @@ namespace MovieStore.Models.DataAccess.Mappigs
                 .IsUnicode(true)
                 .HasColumnOrder(2);             // It asccepts Unicode characters such as chinese alphabet
 
+
+            builder.Property(x => x.Description)
+               .HasColumnOrder(3)
+               .IsUnicode()
+               .HasMaxLength(250);
+
+
+
             builder.Property(x => x.CategoryId)
                 .IsRequired()
-                .HasColumnOrder(3);
+                .HasColumnOrder(4);
 
             builder.Property(x => x.DirectorId)
                 .IsRequired()
-                .HasColumnOrder(4);
+                .HasColumnOrder(5);
 
             builder.Property(x => x.ReleaseDate)
                 .IsRequired()                   
                 .HasColumnType("date")          //Data Type is yyyy/mm/dd in te database
-                .HasColumnOrder(5);
+                .HasColumnOrder(6);
 
             builder.Property(x => x.RunningTimeMin)
-                .HasColumnOrder(6)
+                .HasColumnOrder(7)
                 .HasColumnType("smallint");
 
             builder.Property(x=>x.LanguageId)
                 .IsRequired()
-                .HasColumnOrder(7);
+                .HasColumnOrder(8);
 
             builder.Property(x => x.Price)
                 .IsRequired()
                 .HasColumnType("decimal(7,2)")
-                .HasColumnOrder(8);
+                .HasColumnOrder(9);
 
             builder.Property(x=>x.Stock)
                 .IsRequired()
-                .HasColumnOrder (9);
+                .HasColumnOrder (10);
 
             builder.Property(x => x.IsActive)
                 .HasDefaultValue(false)         //Default value is false, If there is no input , the value of the property will be false
-                .HasColumnOrder(10);
+                .HasColumnOrder(11);
 
+            builder.Property(x => x.ImagePath)
+                .HasColumnOrder(12);
 
             // Foreing Key Between Movie and Category
 
