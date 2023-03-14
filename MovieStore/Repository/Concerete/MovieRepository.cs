@@ -1,4 +1,5 @@
-﻿using MovieStore.Models.DataAccess;
+﻿using Microsoft.EntityFrameworkCore;
+using MovieStore.Models.DataAccess;
 using MovieStore.Models.Entities;
 using MovieStore.Repository.Abstract;
 using System.Linq.Expressions;
@@ -9,7 +10,7 @@ namespace MovieStore.Repository.Concerete
     {
         private readonly IMovieDbContext _context;
 
-        public MovieRepository(MovieDbContext context)
+        public MovieRepository(IMovieDbContext context)
         {
             _context = context;
         }
@@ -26,9 +27,10 @@ namespace MovieStore.Repository.Concerete
             return Save() > 0;
         }
 
-        public List<Movie> GetAll()
+        public ICollection<Movie> GetAll()
         {
-           return _context.Movies.ToList();
+           var movies = _context.Movies.Include(x=>x.Director).Include(x=>x.Category).Include(x=>x.Starrings).Include(x=>x.Language).ToList();
+            return movies;
         }
 
         public Movie GetById(int id)
@@ -36,7 +38,7 @@ namespace MovieStore.Repository.Concerete
             return _context.Movies.Find(id);
         }
 
-        public List<Movie> GetDefault(Expression<Func<Movie, bool>> exp)
+        public ICollection<Movie> GetDefault(Expression<Func<Movie, bool>> exp)
         {
             return _context.Movies.Where(exp).ToList();
         }
