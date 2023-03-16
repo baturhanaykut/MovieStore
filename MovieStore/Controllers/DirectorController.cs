@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor.Compilation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieStore.Models.Entities;
+using MovieStore.Models.ViewModels;
 using MovieStore.Repository.Abstract;
 
 namespace MovieStore.Controllers
@@ -9,10 +11,12 @@ namespace MovieStore.Controllers
     public class DirectorController : Controller
     {
         private readonly IDirectorRepository _directorRepository;
+        private readonly IMapper _mapper;
 
-        public DirectorController(IDirectorRepository directorRepository)
+        public DirectorController(IDirectorRepository directorRepository, IMapper mapper)
         {
             _directorRepository = directorRepository;
+            _mapper = mapper;
         }
         public IActionResult Index()
         {
@@ -26,30 +30,44 @@ namespace MovieStore.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Director newDirector)
+        public IActionResult Create(DirectorVM newDirector)
         {
-            _directorRepository.Add(newDirector);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _directorRepository.Add(_mapper.Map<Director>(newDirector));
+                TempData["success"] = "New Director is added successfully";
+                return RedirectToAction("Index");
+            }
+            return View(newDirector);
+            
         }
 
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            return View(_directorRepository.GetById(id));
+
+            return View(_mapper.Map<DirectorVM>(_directorRepository.GetById(id)));
         }
 
         [HttpPost]
-        public IActionResult Edit(Director updatedDirector)
+        public IActionResult Edit(DirectorVM updatedDirector)
         {
-            _directorRepository.Update(updatedDirector);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _directorRepository.Update(_mapper.Map<Director>(updatedDirector));
+                TempData["success"] = "New Director is updated successfully";
+                return RedirectToAction("Index");
+            }
+            return View(updatedDirector);
+            
         }
 
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            return View(_directorRepository.GetById(id));
+
+            return View(_mapper.Map<DirectorVM>(_directorRepository.GetById(id)));
         }
 
         [HttpPost]
@@ -57,6 +75,7 @@ namespace MovieStore.Controllers
         public IActionResult DeleteConfirmed(int id)
         {
             _directorRepository.Delete(id);
+            TempData["success"] = "New Director is deleted successfully";
             return RedirectToAction("Index");
         }
 
@@ -64,20 +83,11 @@ namespace MovieStore.Controllers
         [HttpGet]
         public IActionResult Details(int id)
         {
-            var directors = _directorRepository.GetDefault(x => x.Id == id);
-            List<Movie> directorMovies = new List<Movie>();
-            foreach (var director in directors)
-            {
-                foreach (var movie in director.DirectedMovies)
-                {
-                    directorMovies.Add(movie);
-                }
-                ViewBag.DirectedMovies = new SelectList(directorMovies, "Id", "Name");
+            
 
+            ViewBag.DirectedMovies = new SelectList(_directorRepository.GetById(id).DirectedMovies, "Id", "Name");
 
-            }
-
-            return View(_directorRepository.GetById(id));
+            return View(_mapper.Map<DirectorVM>(_directorRepository.GetById(id)));
         }
 
 
