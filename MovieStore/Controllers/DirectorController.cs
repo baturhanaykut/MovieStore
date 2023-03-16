@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieStore.Models.Entities;
 using MovieStore.Models.ViewModels;
 using MovieStore.Repository.Abstract;
+using NuGet.Protocol.Core.Types;
 
 namespace MovieStore.Controllers
 {
@@ -20,7 +21,12 @@ namespace MovieStore.Controllers
         }
         public IActionResult Index()
         {
-            return View(_directorRepository.GetAll());
+            List<DirectorVM> directors = new List<DirectorVM>();
+            foreach (var item in _directorRepository.GetAll())
+            {
+                directors.Add(_mapper.Map<DirectorVM>(item));
+            }
+            return View(directors);
         }
 
         [HttpGet]
@@ -56,7 +62,7 @@ namespace MovieStore.Controllers
             if (ModelState.IsValid)
             {
                 _directorRepository.Update(_mapper.Map<Director>(updatedDirector));
-                TempData["success"] = "New Director is updated successfully";
+                TempData["success"] = "Director is updated successfully";
                 return RedirectToAction("Index");
             }
             return View(updatedDirector);
@@ -75,7 +81,7 @@ namespace MovieStore.Controllers
         public IActionResult DeleteConfirmed(int id)
         {
             _directorRepository.Delete(id);
-            TempData["success"] = "New Director is deleted successfully";
+            TempData["success"] = "Director is deleted successfully";
             return RedirectToAction("Index");
         }
 
