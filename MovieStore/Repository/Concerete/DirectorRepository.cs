@@ -36,13 +36,13 @@ namespace MovieStore.Repository.Concerete
 
         public Director GetById(int id)
         {
-            return _context.Directors.Find(id);
+            return _context.Directors.Include(x => x.DirectedMovies).FirstOrDefault(x => x.Id == id);
 
         }
 
         public ICollection<Director> GetDefault(Expression<Func<Director, bool>> exp)
-        {  
-           return _context.Directors.Include(x=>x.DirectedMovies).Where(exp).ToList();
+        {
+            return _context.Directors.Include(x => x.DirectedMovies).Where(exp).ToList();
         }
 
         public int Save()

@@ -2,6 +2,7 @@ using MovieStore.Models.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using MovieStore.Repository.Abstract;
 using MovieStore.Repository.Concerete;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddScoped<IMovieDbContext, MovieDbContext>(); // The program cr
 
 builder.Services.AddTransient<IMovieRepository, MovieRepository>()
                 .AddTransient<IDirectorRepository, DirectorRepository>();
+
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 
