@@ -11,5 +11,6 @@ namespace MovieStore.Repository.Abstract
     /// <typeparam name="Entity"></typeparam>
     public interface IMovieRepository:IBaseRepository<Movie>
     {
+
     }
 }

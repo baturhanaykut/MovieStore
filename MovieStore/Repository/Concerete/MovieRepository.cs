@@ -21,9 +21,9 @@ namespace MovieStore.Repository.Concerete
             return Save() > 0;
         }
 
-        public bool Delete(int Id)
+        public bool Delete(int id)
         {
-            _context.Movies.Remove(GetById(Id));
+            _context.Movies.Remove(GetById(id));
             return Save() > 0;
         }
 
