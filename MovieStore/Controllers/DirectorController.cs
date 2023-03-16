@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor.Compilation;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieStore.Models.Entities;
 using MovieStore.Repository.Abstract;
 
@@ -19,13 +20,13 @@ namespace MovieStore.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create() 
+        public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(Director newDirector) 
+        public IActionResult Create(Director newDirector)
         {
             _directorRepository.Add(newDirector);
             return RedirectToAction("Index");
@@ -46,13 +47,13 @@ namespace MovieStore.Controllers
         }
 
         [HttpGet]
-        public IActionResult Delete(int id) 
+        public IActionResult Delete(int id)
         {
             return View(_directorRepository.GetById(id));
         }
 
         [HttpPost]
-        [ActionName ("Delete")]
+        [ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
             _directorRepository.Delete(id);
@@ -63,6 +64,19 @@ namespace MovieStore.Controllers
         [HttpGet]
         public IActionResult Details(int id)
         {
+            var directors = _directorRepository.GetDefault(x => x.Id == id);
+            List<Movie> directorMovies = new List<Movie>();
+            foreach (var director in directors)
+            {
+                foreach (var movie in director.DirectedMovies)
+                {
+                    directorMovies.Add(movie);
+                }
+                ViewBag.DirectedMovies = new SelectList(directorMovies, "Id", "Name");
+
+
+            }
+
             return View(_directorRepository.GetById(id));
         }
 

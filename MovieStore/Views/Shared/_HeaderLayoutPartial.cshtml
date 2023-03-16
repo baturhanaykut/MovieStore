@@ -10,11 +10,17 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">
+                        <a class="nav-link active" asp-controller="Movie" asp-action="Index">
                             Movie
                             <span class="visually-hidden">(current)</span>
                         </a>
                     </li>
+                <li class="nav-item">
+                    <a class="nav-link active" asp-controller="Director" asp-action="Index">
+                        Director
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Features</a>
                     </li>
