@@ -19,7 +19,7 @@ namespace MovieStore.Models.ViewModels
         [DataType(DataType.Date)]
         [Display(Name = "Birth Date")]
         public DateTime? BirthDate { get; set; }
-
+         [Display(Name = "Directed Movies")]
         public List<Movie>? DirectedMovies { get; set; }
     }
 }
