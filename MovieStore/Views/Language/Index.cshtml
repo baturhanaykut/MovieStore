@@ -1,4 +1,4 @@
-﻿@model IEnumerable<StarringVM>
+﻿@model IEnumerable<LanguageVM>
 
 @if (TempData["success"] is not null)
 {
@@ -16,7 +16,7 @@
 
 <div class="row">
     <div class="col-lg-2 "></div>
-    <a class="btn btn-primary m-2 col-lg-2" asp-controller="Starring" asp-action="Create">Create New Starring</a>
+    <a class="btn btn-primary m-2 col-lg-2" asp-controller="Language" asp-action="Create">Create New Language</a>
 </div>
 <div class="row d-flex justify-content-center">
 
@@ -25,9 +25,8 @@
             <thead>
                 <tr class="table-warning text-center">
                     <th scope="col">@Html.DisplayNameFor(x=>x.Id)</th>
-                    <th scope="col">@Html.DisplayNameFor(x=>x.FirstName)</th>
-                    <th scope="col">@Html.DisplayNameFor(x=>x.LastName)</th>
-                    <th scope="col">@Html.DisplayNameFor(x=>x.BirthDate)</th>
+                    <th scope="col">@Html.DisplayNameFor(x=>x.Name)</th>
+                    <th scope="col">@Html.DisplayNameFor(x=>x.OriginalLanguageOfMovies)</th>
                     <th></th>
                 </tr>
             </thead>
@@ -39,14 +38,14 @@
                     <tr class="table-primary text-center align-middle">
 
                         <td>@item.Id </td>
-                        <td>@item.FirstName</td>
-                        <td>@item.LastName</td>
-                        <td>@item.BirthDate</td>
+                        <td>@item.Name</td>
+                        <td>@item.OriginalLanguageOfMovies</td>
+                      
 
                         <td>
-                            <a class="btn btn-info m-2" asp-controller="Starring" asp-action="Edit" asp-route-Id="@item.Id">Edit</a>
-                            <a class="btn btn-success m-2" asp-controller="Starring" asp-action="Details" asp-route-Id="@item.Id">Details</a>
-                            <a class="btn btn-danger m-2" asp-controller="Starring" asp-action="Delete" asp-route-Id="@item.Id">Delete</a>
+                            @*<a class="btn btn-info m-2" asp-controller="Starring" asp-action="Edit" asp-route-Id="@item.Id">Edit</a>*@
+                            @*<a class="btn btn-success m-2" asp-controller="Starring" asp-action="Details" asp-route-Id="@item.Id">Details</a>*@
+                            <a class="btn btn-danger m-2" asp-controller="Language" asp-action="Delete" asp-route-Id="@item.Id">Delete</a>
                         </td>
                     </tr>
                 }

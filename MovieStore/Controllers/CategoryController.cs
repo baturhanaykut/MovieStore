@@ -91,24 +91,5 @@ namespace MovieStore.Controllers
             return View(_mapper.Map<CategoryVM>(_repository.GetById(id)));
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
