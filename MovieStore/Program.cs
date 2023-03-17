@@ -15,7 +15,9 @@ builder.Services.AddScoped<IMovieDbContext, MovieDbContext>(); // The program cr
 
 builder.Services.AddTransient<IMovieRepository, MovieRepository>()
                 .AddTransient<IDirectorRepository, DirectorRepository>()
-                .AddTransient<IStarringRepository, StarringRepository>();
+                .AddTransient<IStarringRepository, StarringRepository>()
+                .AddTransient<ICategoryRepository, CategoryRepository>();
+            
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
