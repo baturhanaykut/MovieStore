@@ -29,13 +29,13 @@ namespace MovieStore.Repository.Concerete
 
         public ICollection<Movie> GetAll()
         {
-           var movies = _context.Movies.Include(x=>x.Director).Include(x=>x.Category).Include(x=>x.Starrings).Include(x=>x.Language).ToList();
+            var movies = _context.Movies.Include(x => x.Director).Include(x => x.Category).Include(x => x.Starrings).Include(x => x.Language).ToList();
             return movies;
         }
 
         public Movie GetById(int id)
         {
-            return _context.Movies.Find(id);
+            return _context.Movies.Include(x => x.Director).Include(x => x.Category).Include(x => x.Starrings).Include(x => x.Language).FirstOrDefault(x => x.Id == id);
         }
 
         public ICollection<Movie> GetDefault(Expression<Func<Movie, bool>> exp)

@@ -17,5 +17,8 @@
         //Navigation Property
         public List<Movie>? PerformedMovies { get; set; }
 
+        //Not Mapp
+        public string FullName => (FirstName + " " + LastName);
+
     }
 }

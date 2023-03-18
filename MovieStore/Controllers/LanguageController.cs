@@ -35,7 +35,7 @@ namespace MovieStore.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Create(LanguageVM newLanguage)
         {
             if (ModelState.IsValid)
@@ -53,7 +53,7 @@ namespace MovieStore.Controllers
             return View(_mapper.Map<LanguageVM>(_repository.GetById(id)));
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Edit(LanguageVM updatedLanguage)
         {
             if (ModelState.IsValid)
@@ -71,7 +71,7 @@ namespace MovieStore.Controllers
             return View(_mapper.Map<LanguageVM>(_repository.GetById(id)));
         }
 
-        [HttpPost]
+        [HttpPost,ValidateAntiForgeryToken]
         [ActionName("Delete")]
         public IActionResult DeleteComfirmed(int id)
         {

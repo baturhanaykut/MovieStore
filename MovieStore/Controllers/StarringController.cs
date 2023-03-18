@@ -13,11 +13,13 @@ namespace MovieStore.Controllers
     public class StarringController : Controller
     {
         private readonly IStarringRepository _repository;
+        private readonly IMovieRepository _movieRepository;
         private readonly IMapper _mapper;
 
-        public StarringController(IStarringRepository starringRepository, IMapper mapper)
+        public StarringController(IStarringRepository starringRepository, IMapper mapper, IMovieRepository movieRepository)
         {
             _repository = starringRepository;
+            _movieRepository = movieRepository;
             _mapper = mapper;
         }
         public IActionResult Index()
@@ -36,7 +38,7 @@ namespace MovieStore.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Create(StarringVM newStarring)
         {
             StarringValidation validator = new StarringValidation();
@@ -61,7 +63,7 @@ namespace MovieStore.Controllers
             return View(_mapper.Map<StarringVM>(_repository.GetById(id)));
         }
 
-        [HttpPost]
+        [HttpPost,ValidateAntiForgeryToken]
         public IActionResult Edit(StarringVM updatedStarring)
         {
             StarringValidation validator = new StarringValidation();
@@ -84,7 +86,7 @@ namespace MovieStore.Controllers
             return View(_mapper.Map<StarringVM>(_repository.GetById(id)));
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         [ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
@@ -98,7 +100,7 @@ namespace MovieStore.Controllers
         public IActionResult Details(int id)
         {
 
-
+            ViewBag.Starrings = new SelectList(_repository.GetById(id).FullName);
             ViewBag.PerformedMovies = new SelectList(_repository.GetById(id).PerformedMovies, "Id", "Name");
 
             return View(_mapper.Map<StarringVM>(_repository.GetById(id)));

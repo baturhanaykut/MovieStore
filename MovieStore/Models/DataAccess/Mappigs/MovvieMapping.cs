@@ -22,13 +22,10 @@ namespace MovieStore.Models.DataAccess.Mappigs
                 .IsUnicode(true)
                 .HasColumnOrder(2);             // It asccepts Unicode characters such as chinese alphabet
 
-
             builder.Property(x => x.Description)
                .HasColumnOrder(3)
                .IsUnicode()
                .HasMaxLength(250);
-
-
 
             builder.Property(x => x.CategoryId)
                 .IsRequired()
