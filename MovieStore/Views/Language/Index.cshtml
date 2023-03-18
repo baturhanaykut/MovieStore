@@ -26,7 +26,7 @@
                 <tr class="table-warning text-center">
                     <th scope="col">@Html.DisplayNameFor(x=>x.Id)</th>
                     <th scope="col">@Html.DisplayNameFor(x=>x.Name)</th>
-                    <th scope="col">@Html.DisplayNameFor(x=>x.OriginalLanguageOfMovies)</th>
+                    
                     <th></th>
                 </tr>
             </thead>
@@ -39,12 +39,11 @@
 
                         <td>@item.Id </td>
                         <td>@item.Name</td>
-                        <td>@item.OriginalLanguageOfMovies</td>
+                        
                       
 
                         <td>
-                            @*<a class="btn btn-info m-2" asp-controller="Starring" asp-action="Edit" asp-route-Id="@item.Id">Edit</a>*@
-                            @*<a class="btn btn-success m-2" asp-controller="Starring" asp-action="Details" asp-route-Id="@item.Id">Details</a>*@
+                           
                             <a class="btn btn-danger m-2" asp-controller="Language" asp-action="Delete" asp-route-Id="@item.Id">Delete</a>
                         </td>
                     </tr>
