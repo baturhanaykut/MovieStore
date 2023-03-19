@@ -10,7 +10,8 @@ namespace MovieStore.Models.ViewModels
         public MovieVM()
         {
             Starrings = new List<Starring>();
-            StarrignsIds = new List<int> ();
+            AddStarrignsIds = new List<int> ();
+            DeleteStarrignsIds = new List<int>();
         }
 
         public int? Id { get; set; }
@@ -59,7 +60,11 @@ namespace MovieStore.Models.ViewModels
         [ValidateNever]
         public string? ImagePath { get; set; }
         [ValidateNever]
-        public List<int> StarrignsIds { get; set; }
+        [DisplayName("Starrings that can be added")]
+        public List<int> AddStarrignsIds { get; set; } 
+        [ValidateNever]
+        [DisplayName("Current Starrings")]
+        public List<int> DeleteStarrignsIds { get; set; }
 
         [Required(ErrorMessage = "Stock cannot be null")]
         [Display(Name = "Stock")]
