@@ -4,6 +4,7 @@ using MovieStore.Repository.Abstract;
 using MovieStore.Repository.Concerete;
 using System.Reflection;
 using Microsoft.Extensions.FileProviders;
+using MovieStore.Models.Seed;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +39,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+SeedData.Seed(app);  //Bogus Kullanmak için
 app.UseRouting();
 
 app.UseAuthorization();

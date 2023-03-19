@@ -10,9 +10,9 @@ namespace MovieStore.Controllers
 {
     public class MovieController : Controller
     {
-        private readonly IMovieRepository _movieRepository;
         private readonly IMapper _mapper;
-        private readonly ICategoryRepository _categorRepository;
+        private readonly IMovieRepository _movieRepository;
+        private readonly ICategoryRepository _categoryRepository;
         private readonly IDirectorRepository _directorRepository;
         private readonly ILanguageRepository _languageRepository;
         private readonly IStarringRepository _starringRepository;
@@ -22,7 +22,7 @@ namespace MovieStore.Controllers
         {
             _mapper = mapper;
             _movieRepository = movieRepository;
-            _categorRepository = categoryRepository;
+            _categoryRepository = categoryRepository;
             _directorRepository = directorRepository;
             _languageRepository = languageRepository;
             _starringRepository = starringRepository;
@@ -43,10 +43,10 @@ namespace MovieStore.Controllers
 
         public IActionResult Create()
         {
-            ViewBag.Categories = new SelectList(_categorRepository.GetAll(), "Id", "Name");
+            ViewBag.Categories = new SelectList(_categoryRepository.GetAll(), "Id", "Name");
             ViewBag.Directors = new SelectList(_directorRepository.GetAll(), "Id", "FullName");
             ViewBag.Language = new SelectList(_languageRepository.GetAll(), "Id", "Name");
-            ViewBag.Starrings = new SelectList(_starringRepository.GetAll(), "Id", "FullName");
+            ViewBag.AddStarrignsIds = new SelectList(_starringRepository.GetAll(), "Id", "FullName");
             return View();
         }
 
@@ -73,32 +73,37 @@ namespace MovieStore.Controllers
 
                 }
 
-                foreach (var item in model.StarrignsIds)
+                foreach (var item in model.AddStarrignsIds)
                 {
-                    model.Starrings.Add(_starringRepository.GetById(item));
+                    newMovie.Starrings.Add(_starringRepository.GetById(item));
                 }
 
                 _movieRepository.Add(newMovie);
                 TempData["Succes"] = "Nev Movie is added successfully";
                 return RedirectToAction("Index");
             }
-            ViewBag.Categories = new SelectList(_categorRepository.GetAll(), "Id", "Name");
+            ViewBag.Categories = new SelectList(_categoryRepository.GetAll(), "Id", "Name");
             ViewBag.Directors = new SelectList(_directorRepository.GetAll(), "Id", "FullName");
             ViewBag.Language = new SelectList(_languageRepository.GetAll(), "Id", "Name");
-            ViewBag.Starrings = new SelectList(_starringRepository.GetAll(), "Id", "FullName");
+            ViewBag.AddStarrignsIds = new SelectList(_starringRepository.GetAll(), "Id", "FullName");
             return View(model);
         }
 
         public IActionResult Edit(int id)
         {
-            ViewBag.Categories = new SelectList(_categorRepository.GetAll(), "Id", "Name");
+            var starringsThatInPlayMovie = _movieRepository.GetById(id).Starrings;
+            var starringsThatNotInPlayMovie = _starringRepository.GetAll().Except(starringsThatInPlayMovie);
+
+            ViewBag.Categories = new SelectList(_categoryRepository.GetAll(), "Id", "Name");
             ViewBag.Directors = new SelectList(_directorRepository.GetAll(), "Id", "FullName");
             ViewBag.Language = new SelectList(_languageRepository.GetAll(), "Id", "Name");
-            ViewBag.Starrings = new SelectList(_starringRepository.GetAll(), "Id", "FullName");
+            ViewBag.DeleteStarrignsIds = new SelectList(starringsThatInPlayMovie, "Id", "FullName");
+            ViewBag.AddStarrignsIds = new SelectList(starringsThatNotInPlayMovie, "Id", "FullName");
+
             return View(_mapper.Map<MovieVM>(_movieRepository.GetById(id)));
         }
 
-        [HttpPost,ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Edit(MovieVM model)
         {
 
@@ -119,20 +124,33 @@ namespace MovieStore.Controllers
                     model.ImagePath = randomImageName;
 
                 }
-           
-                foreach (var item in model.StarrignsIds)
+
+               
+                foreach (var item in model.AddStarrignsIds)
                 {
                     model.Starrings.Add(_starringRepository.GetById(item));
+                }
+                foreach (var item in model.DeleteStarrignsIds)
+                {
+                    if (item != null)
+                    { 
+                        model.Starrings.Remove(_starringRepository.GetById(item));
+                    }
                 }
 
                 _movieRepository.Update(_mapper.Map<Movie>(model));
                 TempData["Succes"] = "Movie is updated successfully";
                 return RedirectToAction("Index");
             }
-            ViewBag.Categories = new SelectList(_categorRepository.GetAll(), "Id", "Name");
+
+            var starringsThatInPlayMovie = _movieRepository.GetById((int)model.Id).Starrings;
+            var starringsThatNotInPlayMovie = _starringRepository.GetAll().Except(starringsThatInPlayMovie);
+
+            ViewBag.Categories = new SelectList(_categoryRepository.GetAll(), "Id", "Name");
             ViewBag.Directors = new SelectList(_directorRepository.GetAll(), "Id", "FullName");
             ViewBag.Language = new SelectList(_languageRepository.GetAll(), "Id", "Name");
-            ViewBag.Starrings = new SelectList(_starringRepository.GetAll(), "Id", "FullName");
+            ViewBag.DeleteStarrignsIds = new SelectList(starringsThatInPlayMovie, "Id", "FullName");
+            ViewBag.AddStarrignsIds = new SelectList(starringsThatNotInPlayMovie, "Id", "FullName");
             return View(model);
 
         }
@@ -145,7 +163,7 @@ namespace MovieStore.Controllers
         }
 
         [HttpPost]
-        [ActionName("Delete"),ValidateAntiForgeryToken]
+        [ActionName("Delete"), ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
             _movieRepository.Delete(id);
