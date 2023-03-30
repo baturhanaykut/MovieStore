@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.FileProviders;
 using MovieStore.Models.Entities;
 using MovieStore.Models.ViewModels;
-using MovieStore.Repository.Abstract;
+using MovieStore_Domain.Repository;
 
 namespace MovieStore.Controllers
 {

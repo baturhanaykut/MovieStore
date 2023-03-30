@@ -20,4 +20,12 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MovieStore_Domain\MovieStore_Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\DataAccess\Mappigs\" />
+  </ItemGroup>
+
 </Project>

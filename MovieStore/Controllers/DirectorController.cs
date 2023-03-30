@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Razor.Compilation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieStore.Models.Entities;
 using MovieStore.Models.ViewModels;
-using MovieStore.Repository.Abstract;
+using MovieStore_Domain.Repository;
 using NuGet.Protocol.Core.Types;
 
 namespace MovieStore.Controllers

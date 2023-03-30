@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using MovieStore.Models.Entities;
 using MovieStore.Models.ViewModels;
+using MovieStore_Domain.Entities;
 
 namespace MovieStore.Mapping
 {

@@ -1,10 +1,10 @@
 using MovieStore.Models.DataAccess;
 using Microsoft.EntityFrameworkCore;
-using MovieStore.Repository.Abstract;
 using MovieStore.Repository.Concerete;
 using System.Reflection;
 using Microsoft.Extensions.FileProviders;
 using MovieStore.Models.Seed;
+using MovieStore_Domain.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 

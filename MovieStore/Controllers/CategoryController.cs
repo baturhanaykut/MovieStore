@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieStore.Models.Entities;
 using MovieStore.Models.ViewModels;
-using MovieStore.Repository.Abstract;
 using MovieStore.Repository.Concerete;
+using MovieStore_Domain.Repository;
 
 namespace MovieStore.Controllers
 {
