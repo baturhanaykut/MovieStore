@@ -17,6 +17,6 @@ namespace MovieStore_Domain.Entities
         //Navigation Property
 
         public List<Movie>? Movies { get; set; }
-        public Status Statu { get; set; }
+        public Status Status { get; set; }
         }
 }

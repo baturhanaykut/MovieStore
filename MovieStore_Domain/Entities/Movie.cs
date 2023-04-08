@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using MovieStore_Domain.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MovieStore_Domain.Entities
 {
@@ -36,6 +37,7 @@ namespace MovieStore_Domain.Entities
 
         public string? ImagePath { get; set; }
 
+        [NotMapped]
         public IFormFile UploadPath { get; set; }
 
 
@@ -46,7 +48,7 @@ namespace MovieStore_Domain.Entities
 
         public List<Starring>? Starrings { get; set; }
         public Language? Language { get; set; }
-        public Status Statu { get; set; }
+        public Status Status { get; set; }
         //public List<Language>? SubTitlesLanguages { get; set; }
     }
 }

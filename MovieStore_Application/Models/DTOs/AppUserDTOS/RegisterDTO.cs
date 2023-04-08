@@ -18,6 +18,8 @@ namespace MovieStore_Application.Models.DTOs.AppUserDTOS
 
         public string Email { get; set; }
 
+        public DateTime CreateDate => DateTime.Now;
+
         public Status status => Status.Active;
     }
 }

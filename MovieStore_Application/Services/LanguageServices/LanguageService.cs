@@ -32,7 +32,7 @@ namespace MovieStore_Application.Services.LanguageServices
         public async Task<bool> Delete(int id)
         {
             Language deleteLanguage = await _languageRepository.GetDefault(x => x.Id == id);
-            deleteLanguage.Statu = Status.Deleted;
+            deleteLanguage.Status = Status.Deleted;
             return await _languageRepository.Delete(deleteLanguage);
 
         }
@@ -43,15 +43,15 @@ namespace MovieStore_Application.Services.LanguageServices
             return _mapper.Map<UpdateLanguageDTO>(language);
         }
 
-        public Task<List<LanguageVM>> GetLanguages()
+        public async Task<List<LanguageVM>> GetLanguages()
         {
-           var languages = _languageRepository.GetFilteredList(
+           var languages = await _languageRepository.GetFilteredList(
                 select: x => new LanguageVM
                 {
                     Id = x.Id,
                     Name = x.Name,
                 },
-                where: x => x.Statu != Status.Passive && x.Statu != Status.Deleted,
+                where: x => x.Status != Status.Passive && x.Status != Status.Deleted,
                 orderBy: x => x.OrderBy(x => x.Name)
                 );
             return languages;

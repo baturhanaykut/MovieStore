@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace MovieStore_Infrastructure.Reporsitories
 {
-    internal class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class, IBaseEntity
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class, IBaseEntity
     {
 
         private readonly ApplicationDbContext _context;

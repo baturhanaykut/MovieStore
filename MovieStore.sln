@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieStore", "MovieStore\MovieStore.csproj", "{1B255898-31DC-4826-A80C-5AFF9AF88C4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieStore_Presentation", "MovieStore\MovieStore_Presentation.csproj", "{1B255898-31DC-4826-A80C-5AFF9AF88C4F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieStore_Domain", "MovieStore_Domain\MovieStore_Domain.csproj", "{A663E751-52FB-4FF1-8273-B68135484851}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieStore_Infrastructure", "MoviesStore.Infrastructure\MovieStore_Infrastructure.csproj", "{66B51550-52C0-4514-90DF-B0AB9C2C8647}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieStore_Application", "MovieStore_Application\MovieStore_Application.csproj", "{148A0EBA-780D-4A76-AC73-3C546E345285}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieStore_Application", "MovieStore_Application\MovieStore_Application.csproj", "{148A0EBA-780D-4A76-AC73-3C546E345285}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

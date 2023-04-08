@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MovieStore_Infrastructure.Reporsitories
 {
-    internal class StarringRepository : BaseRepository<Starring>,IStarringRepository
+    public class StarringRepository : BaseRepository<Starring>,IStarringRepository
     {
         public StarringRepository(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
         {

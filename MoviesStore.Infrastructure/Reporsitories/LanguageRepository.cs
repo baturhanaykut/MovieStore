@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MovieStore_Infrastructure.Reporsitories
 {
-    internal class LanguageRepository:BaseRepository<Language>,ILanguageRepository
+    public class LanguageRepository:BaseRepository<Language>,ILanguageRepository
     {
         public LanguageRepository(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
         {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MovieStore_Domain.Entities;
+using MovieStore_Infrastructure.Configuration;
 using MovieStore_Infrastructure.Mappings;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,8 @@ namespace MovieStore_Infrastructure.ApllicationDbContext
 
         DbSet<Language> Languages { get; set; }
 
+        DbSet<AppUser> AppUsers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
@@ -35,7 +38,9 @@ namespace MovieStore_Infrastructure.ApllicationDbContext
                         .ApplyConfiguration(new CategoryConfig())
                         .ApplyConfiguration(new DirectorConfig())
                         .ApplyConfiguration(new LanguageConfig())
-                        .ApplyConfiguration(new StarringConfig());
+                        .ApplyConfiguration(new StarringConfig())
+                        .ApplyConfiguration(new AppUserConfig());
+                        
 
             base.OnModelCreating(builder);
         }

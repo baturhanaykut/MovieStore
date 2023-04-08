@@ -33,7 +33,7 @@ namespace MovieStore_Application.Services.CategoryServices
         public async Task<bool> Delete(int id)
         {
             Category deleteCategory = await _categoryRepository.GetDefault(x => x.Id == id);
-            deleteCategory.Statu = Status.Deleted;
+            deleteCategory.Status = Status.Deleted;
             return await _categoryRepository.Delete(deleteCategory);
 
         }
@@ -54,7 +54,7 @@ namespace MovieStore_Application.Services.CategoryServices
                     Name = x.Name,
                     Description = x.Description,
                 },
-                where: x => x.Statu != Status.Passive && x.Statu != Status.Deleted,
+                where: x => x.Status != Status.Passive && x.Status != Status.Deleted,
                 orderBy : x=>x.OrderBy(x=>x.Name)
                 );
             return categoriess;

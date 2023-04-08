@@ -69,9 +69,9 @@ namespace MovieStore_Application.Services.MovieServices
                     {
                         Id = x.Id,
                         Name = x.Name,
-                        Description = x.Description
+                        
                     },
-                 where: x => x.Statu != Status.Passive && x.Statu != Status.Deleted,
+                 where: x => x.Status != Status.Passive && x.Status != Status.Deleted,
                  orderBy: x => x.OrderBy(x => x.Name)
                  ),
                 Directors = await _directorRepository.GetFilteredList(
@@ -80,9 +80,12 @@ namespace MovieStore_Application.Services.MovieServices
                         Id = x.Id,
                         FirstName = x.FirstName,
                         LastName = x.LastName,
-                        BirthDate = x.BirthDate
+                        BirthDate = x.BirthDate,
+                       
+                        
+                        // Todo : Full Name eklenicek
                     },
-                    where: x => x.Statu != Status.Passive && x.Statu != Status.Deleted,
+                    where: x => x.Status != Status.Passive && x.Status != Status.Deleted,
                  orderBy: x => x.OrderBy(x => x.FirstName)
                  ),
                 Languages = await _languageRepository.GetFilteredList(
@@ -91,7 +94,7 @@ namespace MovieStore_Application.Services.MovieServices
                         Id = x.Id,
                         Name = x.Name,
                     },
-                 where: x => x.Statu != Status.Passive && x.Statu != Status.Deleted,
+                 where: x => x.Status != Status.Passive && x.Status != Status.Deleted,
                  orderBy: x => x.OrderBy(x => x.Name)
                     ),
                 Starrings = await _starringRepository.GetFilteredList(
@@ -101,8 +104,9 @@ namespace MovieStore_Application.Services.MovieServices
                         FirstName = x.FirstName,
                         LastName = x.LastName,
                         BirthDate = x.BirthDate
+                        //Todo : FullName eklenicek
                     },
-                 where: x => x.Statu != Status.Passive && x.Statu != Status.Deleted,
+                 where: x => x.Status != Status.Passive && x.Status != Status.Deleted,
                  orderBy: x => x.OrderBy(x => x.FirstName)
                     ),
 
@@ -115,7 +119,7 @@ namespace MovieStore_Application.Services.MovieServices
         public async Task<bool> Delete(int id)
         {
             Movie movie = await _movieRepository.GetDefault(x => x.Id == id);
-            movie.Statu = Status.Passive;
+            movie.Status = Status.Passive;
             return await _movieRepository.Delete(movie);
         }
 
@@ -132,7 +136,7 @@ namespace MovieStore_Application.Services.MovieServices
                     FirstName = x.FirstName,
                     LastName = x.LastName
                 },
-                where: x => x.Statu != Status.Passive && x.Statu != Status.Deleted,
+                where: x => x.Status != Status.Passive && x.Status != Status.Deleted,
                 orderBy: x => x.OrderBy(x => x.FirstName)
                 );
             model.Starrings = await _starringRepository.GetFilteredList(
@@ -142,7 +146,7 @@ namespace MovieStore_Application.Services.MovieServices
                     FirstName = x.FirstName,
                     LastName = x.LastName
                 },
-                where: x => x.Statu != Status.Passive && x.Statu != Status.Deleted,
+                where: x => x.Status != Status.Passive && x.Status != Status.Deleted,
                 orderBy: x => x.OrderBy(x => x.FirstName)
                 );
             model.Languages = await _languageRepository.GetFilteredList(
@@ -153,7 +157,7 @@ namespace MovieStore_Application.Services.MovieServices
 
 
                  },
-                where: x => x.Statu != Status.Passive && x.Statu != Status.Deleted,
+                where: x => x.Status != Status.Passive && x.Status != Status.Deleted,
                 orderBy: x => x.OrderBy(x => x.Name)
                 );
             model.Categories = await _categoryRepository.GetFilteredList(
@@ -163,7 +167,7 @@ namespace MovieStore_Application.Services.MovieServices
                     Name = x.Name,
                     Description = x.Description
                 },
-                where: x => x.Statu != Status.Passive && x.Statu != Status.Deleted,
+                where: x => x.Status != Status.Passive && x.Status != Status.Deleted,
                 orderBy: x => x.OrderBy(x => x.Name)
                 );
             return model;
@@ -199,26 +203,29 @@ namespace MovieStore_Application.Services.MovieServices
         public async Task<List<MovieVM>> GetMovies()
         {
             var movie = await _movieRepository.GetFilteredList(
-                select: x=> new MovieVM()
+                select: x => new MovieVM()
                 {
-                    Id=x.Id,
-                    Name=x.Name,
-                    Description=x.Description,
-                    ReleaseDate =x.ReleaseDate,
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    ReleaseDate = x.ReleaseDate,
                     DirectorName = x.Director.FullName,
                     CategoryName = x.Category.Name,
-                    Price=x.Price,
-                    Stock=x.Stock
+                    Price = x.Price,
+                    Stock = x.Stock
                 },
-                where: x => x.Statu != Status.Passive && x.Statu != Status.Deleted,
-                orderBy: x=>x.OrderBy(x=>x.Name),
+                where: x => x.Status != Status.Passive && x.Status != Status.Deleted,
+                orderBy: x => x.OrderBy(x => x.Name),
                 include: x => x.Include(x => x.Category)
                              .Include(x => x.Director)
-                            
+
                 );
 
             return movie;
         }
+
+
+
 
         public async Task<bool> Update(UpdateMovieDTO model)
         {
@@ -235,15 +242,13 @@ namespace MovieStore_Application.Services.MovieServices
 
                 movie.ImagePath = $"/images/{guid}.jpg";
             }
-            else
-            {
-                movie.ImagePath = $"/images/defaultmovie.jpg";
-            }
+           
 
-           return await _movieRepository.Update(movie);
+            return await _movieRepository.Update(movie);
         }
 
-       
+
+
     }
 
 

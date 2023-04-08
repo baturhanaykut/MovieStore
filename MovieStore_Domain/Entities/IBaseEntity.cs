@@ -9,6 +9,7 @@ namespace MovieStore_Domain.Entities
 {
     public interface IBaseEntity
     {
-        public Status Statu { get; set; }
+    
+        public Status Status { get; set; }
     }
 }

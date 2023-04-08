@@ -33,7 +33,7 @@ namespace MovieStore_Application.Services.StarringServices
         public async Task<bool> Delete(int id)
         {
             Starring deleteStarring = await _starringRepository.GetDefault(x => x.Id == id);
-            deleteStarring.Statu = Status.Deleted;
+            deleteStarring.Status = Status.Deleted;
             return await _starringRepository.Delete(deleteStarring);
         }
 
@@ -53,7 +53,7 @@ namespace MovieStore_Application.Services.StarringServices
                     LastName = x.LastName,
                     BirthDate = x.BirthDate
                 },
-                where: x => x.Statu != Status.Passive && x.Statu != Status.Deleted,
+                where: x => x.Status != Status.Passive && x.Status != Status.Deleted,
                 orderBy: x => x.OrderBy(x => x.FirstName)
                 );
 

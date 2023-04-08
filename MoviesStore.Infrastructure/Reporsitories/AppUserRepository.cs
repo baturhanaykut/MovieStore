@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MovieStore_Infrastructure.Reporsitories
 {
-    internal class AppUserRepository:BaseRepository<AppUser>, IAppUserRepository
+    public class AppUserRepository:BaseRepository<AppUser>, IAppUserRepository
     {
         public AppUserRepository(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
         {

@@ -1,4 +1,5 @@
 ﻿using MovieStore_Domain.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MovieStore_Domain.Entities
 
@@ -20,20 +21,12 @@ namespace MovieStore_Domain.Entities
 
         public List<Movie>? DirectedMovies { get; set; }
 
-        //Not Mapped
-
+        
+        [NotMapped]
         public string FullName => (FirstName + " " + LastName);
 
-        public Status Statu { get; set; }
+        public Status Status { get; set; }
 
-        //private string fullName;
-
-        //public string FullName
-        //{
-        //    get { return fullName; }
-        //    set { fullName = (FirstName + " " + LastName); }
-        //}
-
-
+        
     }
 }

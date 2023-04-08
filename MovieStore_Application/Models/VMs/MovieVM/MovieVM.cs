@@ -10,6 +10,7 @@ namespace MovieStore_Application.Models.VMs.MovieVM
     public class MovieVM
     {
         public int? Id { get; set; }
+
         public string? Name { get; set; }
 
         public string? Description { get; set; }
@@ -24,7 +25,9 @@ namespace MovieStore_Application.Models.VMs.MovieVM
 
         public decimal? Price { get; set; }
 
-       
+        public string ImagePath { get; set; }
+
+
         public int? Stock { get; set; }
 
         public Category? Category { get; set; }

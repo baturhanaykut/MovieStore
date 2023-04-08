@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MovieStore_Infrastructure.Reporsitories
 {
-    internal class DirectorRepository:BaseRepository<Director>,IDirectorRepository
+    public class DirectorRepository:BaseRepository<Director>,IDirectorRepository
     {
         public DirectorRepository(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
         {

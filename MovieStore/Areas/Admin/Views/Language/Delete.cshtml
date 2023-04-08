@@ -1,0 +1,34 @@
+﻿@model UpdateLanguageDTO
+
+
+<h2 class="text-ligth mt-3">Delete Language</h2>
+
+<form asp-controller="Language" asp-action="delete" method="post">
+    <fieldset>
+        <div class="form-group">
+
+            <label asp-for="Id" class="form-label mt-4">@Html.DisplayNameFor(x=>x.Id)</label>
+            <input asp-for="Id" class="form-control" disabled />
+            <input type="hidden" asp-for="Id" class="form-control" />
+
+        </div>
+
+
+        <div class="form-group">
+            <label asp-for="Name" class="form-label mt-4">@Html.DisplayNameFor(x=>x.Name)</label>
+            <input asp-for="Name" class="form-control" disabled />
+
+        </div>
+
+        <div class="form-group">
+            <label asp-for="OriginalLanguageOfMovies" class="form-label mt-4">@Html.DisplayNameFor(x=>x.OriginalLanguageOfMovies)</label>
+            <input asp-for="OriginalLanguageOfMovies" class="form-control" disabled />
+
+        </div>
+
+       
+
+        <button type="submit" class="btn btn-primary mt-3">Delete The Language</button>
+    </fieldset>
+</form>
+<a class="btn btn-danger mt-3" asp-controller="Language" asp-action="index">Back To List</a>

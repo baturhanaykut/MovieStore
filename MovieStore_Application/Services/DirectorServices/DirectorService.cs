@@ -32,7 +32,7 @@ namespace MovieStore_Application.Services.DirectorServices
         public async Task<bool> Delete(int id)
         {
             Director director = await _directorRepository.GetDefault(x => x.Id == id);
-            director.Statu = Status.Deleted;
+            director.Status = Status.Deleted;
             return await _directorRepository.Delete(director);
         }
 
@@ -54,7 +54,7 @@ namespace MovieStore_Application.Services.DirectorServices
                      BirthDate = x.BirthDate,
 
                  },
-                 where: x => x.Statu != Status.Passive && x.Statu != Status.Deleted,
+                 where: x => x.Status != Status.Passive && x.Status != Status.Deleted,
                  orderBy: x => x.OrderBy(x => x.FirstName)
                  );
             return directors;

@@ -22,6 +22,6 @@ namespace MovieStore_Domain.Entities
         //Not Mapp
         public string FullName => (FirstName + " " + LastName);
 
-        public Status Statu { get; set; }
+        public Status Status { get; set; }
     }
 }

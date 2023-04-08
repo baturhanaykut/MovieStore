@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MovieStore_Infrastructure.Reporsitories
 {
-    internal class CategoryRepository:BaseRepository<Category>, ICategoryRepository
+    public class CategoryRepository:BaseRepository<Category>, ICategoryRepository
     {
         public CategoryRepository(ApplicationDbContext applicationDbContext) : base(applicationDbContext) 
         {
